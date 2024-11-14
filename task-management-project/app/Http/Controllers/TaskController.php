@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Task;
+
 
 class TaskController extends Controller
 {
@@ -53,14 +55,12 @@ class TaskController extends Controller
 
     public function edit(Task $task)
     {
-        $this->authorize('update', $task);
 
         return view('tasks.edit', compact('task'));
     }
 
     public function update(Request $request, Task $task)
     {
-        $this->authorize('update', $task);
 
         $request->validate([
             'title' => 'required|string|max:255',
@@ -77,7 +77,6 @@ class TaskController extends Controller
 
     public function destroy(Task $task)
     {
-        $this->authorize('delete', $task);
 
         $task->delete();
 
