@@ -5,7 +5,7 @@
     <h1 class="mb-4">Tasks</h1>
 
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <form method="GET" action="{{ route('tasks.index') }}" class="d-flex gap-2">
+        <form id="filterForm" method="GET" action="{{ route('tasks.index') }}" class="d-flex gap-2">
             <select name="status" class="form-select">
                 <option value="" style=" margin-right:10px">All Statuses</option>
                 <option value="1">Completed</option>
@@ -21,6 +21,8 @@
 
             <button type="submit" class="btn btn-primary">Filter</button>
         </form>
+        <button class="btn btn-primary">Clear Filter</button>
+
         <a href="{{ route('tasks.create') }}" class="btn btn-primary">Create Task +</a>
     </div>
 
@@ -50,7 +52,6 @@
             </div>
         </div>
 
-        <!-- Medium Priority Tasks -->
         <div class="col-md-4">
             <h4>Medium</h4>
             <div class="d-flex flex-column gap-3">
@@ -76,7 +77,6 @@
             </div>
         </div>
 
-        <!-- High Priority Tasks -->
         <div class="col-md-4">
             <h4>High <span>🔥</span></h4>
             <div class="d-flex flex-column gap-3">
@@ -103,4 +103,11 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('clearFilterBtn').addEventListener('click', function() {
+        const form = document.getElementById('filterForm');
+        form.reset();
+        form.submit();
+    });
+</script>
 @endsection
