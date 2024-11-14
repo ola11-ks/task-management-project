@@ -8,7 +8,7 @@
         <form id="filterForm" method="GET" action="{{ route('tasks.index') }}" class="d-flex gap-2">
             <select name="status" class="form-select">
                 <option value="" style=" margin-right:10px">All Statuses</option>
-                <option value="1">Completed</option>
+                <option value="1">In progress</option>
                 <option value="0">Incomplete</option>
             </select>
 
@@ -52,6 +52,7 @@
             </div>
         </div>
 
+        <!-- Medium Priority Tasks -->
         <div class="col-md-4">
             <h4>Medium</h4>
             <div class="d-flex flex-column gap-3">

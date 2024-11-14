@@ -1,64 +1,46 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mt-5">
-    <h1 class="mb-4">Create Task</h1>
+<div class="container">
+    <h1>Edit Task</h1>
 
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
-
-    <form method="PUT" action="{{ route('tasks.store') }}" class="p-4 bg-white rounded shadow">
+    <form method="POST" action="{{ route('tasks.update', $task) }}">
         @csrf
-        <div class="row mb-9">
-            <div class="col-md-3">
-                <label for="title" class="form-label">Title *</label>
-                <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}" required>
-            </div>
-            <div class="col-md-3" style="margin-top:30px;">
-                <label for="status" class="form-label">Task Status *</label>
-                <select name="status" id="status" class="form-select" required>
-                    <option value="">Not Started</option>
-                    <option value="in_progress">In Progress</option>
-                    <option value="completed">Completed</option>
-                </select>
-            </div>
-            <div class="col-md-3" style="margin-top:30px;">
-                <label for="priority" class="form-label">Priority *</label>
-                <select name="priority" id="priority" class="form-select" required>
-                    <option value="">Select Priority</option>
-                    <option value="1">High</option>
-                    <option value="2">Medium</option>
-                    <option value="3">Low</option>
-                </select>
-            </div>
+        @method('PUT')
+
+        <!-- Task Title -->
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $task->title) }}" required>
         </div>
 
-
-
-
-
-
-        <div class="row mb-3">
-            <div class="col-md-12">
-                <label for="description" class="form-label">Description *</label>
-                <textarea name="description" id="description" class="form-control" rows="3" required>{{ old('description') }}</textarea>
-            </div>
+        <!-- Task Description -->
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" required>{{ old('description', $task->description) }}</textarea>
         </div>
 
-
-
-        <div class="d-flex justify-content-center ">
-            <button type="submit" class="btn btn-success me-3">SUBMIT</button>
-            <a href="{{ route('tasks.index') }}" class="btn btn-secondary" style="margin-left:10px">CANCEL</a>
+        <!-- Task Status -->
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select name="status" id="status" class="form-select">
+                <option value="1" {{ old('status', $task->status) == '1' ? 'selected' : '' }}>Completed</option>
+                <option value="0" {{ old('status', $task->status) == '0' ? 'selected' : '' }}>Incomplete</option>
+            </select>
         </div>
 
+        <!-- Task Priority -->
+        <div class="mb-3">
+            <label for="priority" class="form-label">Priority</label>
+            <select name="priority" id="priority" class="form-select">
+                <option value="1" {{ old('priority', $task->priority) == '1' ? 'selected' : '' }}>High</option>
+                <option value="2" {{ old('priority', $task->priority) == '2' ? 'selected' : '' }}>Medium</option>
+                <option value="3" {{ old('priority', $task->priority) == '3' ? 'selected' : '' }}>Low</option>
+            </select>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Update Task</button>
     </form>
 </div>
 @endsection
